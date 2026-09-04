@@ -258,5 +258,26 @@ def send_demo_image(filename):
 
 
 if __name__ == '__main__':
-    is_dev = os.environ.get('APP_ENV', 'development').lower() == 'development'
-    app.run(host='127.0.0.1', port=5000, debug=is_dev)
+    # Check if running under Streamlit
+    is_streamlit = False
+    try:
+        from streamlit.runtime.scriptrunner import get_script_run_ctx
+        is_streamlit = get_script_run_ctx() is not None
+    except Exception:
+        pass
+
+    if not is_streamlit:
+        import sys
+        if any('streamlit' in str(arg).lower() for arg in sys.argv):
+            is_streamlit = True
+
+    if is_streamlit:
+        import sys
+        import runpy
+        root_dir = Path(__file__).resolve().parent.parent
+        if str(root_dir) not in sys.path:
+            sys.path.insert(0, str(root_dir))
+        runpy.run_path(str(root_dir / 'streamlit_app.py'), run_name='__main__')
+    else:
+        is_dev = os.environ.get('APP_ENV', 'development').lower() == 'development'
+        app.run(host='127.0.0.1', port=5000, debug=is_dev)
