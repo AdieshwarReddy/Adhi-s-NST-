@@ -185,6 +185,113 @@ if st.button("🚀 Generate Artwork", type="primary", use_container_width=True):
             except Exception as ex:
                 st.error(f"Inference error: {ex}")
 
+# Examples Gallery Section
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; margin-top: 2rem; margin-bottom: 1.5rem;">
+    <p style="color: #a855f7; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.2rem;">GALLERY</p>
+    <h2 style="font-size: 2.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.3rem;">Example Transfers</h2>
+    <p style="color: #94a3b8; font-size: 0.95rem;">Each example shows Content + Style → Stylized Output</p>
+</div>
+""", unsafe_allow_html=True)
+
+gal_col1, gal_col2 = st.columns(2)
+
+demo_o1_path = BASE_DIR / 'Demo_IO_Images' / 'o-p' / 'o_p style 1.jpg'
+demo_o2_path = BASE_DIR / 'Demo_IO_Images' / 'o-p' / 'o_p style 2.jpg'
+
+with gal_col1:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem;">
+        <h4 style="color: #e2e8f0; font-size: 1.1rem; margin-bottom: 1rem;">✏️ Transfer 1: Pencil Sketch Style</h4>
+    </div>
+    """, unsafe_allow_html=True)
+    c1, c2, c3 = st.columns([1, 1, 1.4])
+    with c1:
+        if demo_ip_path.exists():
+            st.caption("CONTENT")
+            st.image(str(demo_ip_path), use_container_width=True)
+    with c2:
+        if demo_s1_path.exists():
+            st.caption("STYLE")
+            st.image(str(demo_s1_path), use_container_width=True)
+    with c3:
+        if demo_o1_path.exists():
+            st.caption("PENCIL SKETCH OUTPUT")
+            st.image(str(demo_o1_path), use_container_width=True)
+
+with gal_col2:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.2rem; margin-bottom: 1.5rem;">
+        <h4 style="color: #e2e8f0; font-size: 1.1rem; margin-bottom: 1rem;">🎨 Transfer 2: Cubist Art Style</h4>
+    </div>
+    """, unsafe_allow_html=True)
+    c4, c5, c6 = st.columns([1, 1, 1.4])
+    with c4:
+        if demo_ip_path.exists():
+            st.caption("CONTENT")
+            st.image(str(demo_ip_path), use_container_width=True)
+    with c5:
+        if demo_s2_path.exists():
+            st.caption("STYLE")
+            st.image(str(demo_s2_path), use_container_width=True)
+    with c6:
+        if demo_o2_path.exists():
+            st.caption("CUBIST ART OUTPUT")
+            st.image(str(demo_o2_path), use_container_width=True)
+
+# How It Works Pipeline Section
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; margin-top: 1.5rem; margin-bottom: 2rem;">
+    <p style="color: #a855f7; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.2rem;">PIPELINE</p>
+    <h2 style="font-size: 2.2rem; font-weight: 800; color: #f8fafc; margin-bottom: 0.3rem;">How It Works</h2>
+    <p style="color: #94a3b8; font-size: 0.95rem;">Real-time feedforward architecture with no optimization loops</p>
+</div>
+""", unsafe_allow_html=True)
+
+p1, p2, p3, p4, p5 = st.columns(5)
+with p1:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem; text-align: center;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🖼️</div>
+        <h5 style="color: #f1f5f9; font-size: 1rem; margin-bottom: 0.2rem;">1. Input Images</h5>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin: 0;">Content and Style photos uploaded & resized</p>
+    </div>
+    """, unsafe_allow_html=True)
+with p2:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem; text-align: center;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🧠</div>
+        <h5 style="color: #f1f5f9; font-size: 1rem; margin-bottom: 0.2rem;">2. VGG Encoder</h5>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin: 0;">Extracts deep feature maps at relu4_1</p>
+    </div>
+    """, unsafe_allow_html=True)
+with p3:
+    st.markdown("""
+    <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.4); border-radius: 12px; padding: 1rem; text-align: center;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">✨</div>
+        <h5 style="color: #818cf8; font-size: 1rem; margin-bottom: 0.2rem;">3. AdaIN Alignment</h5>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin: 0;">Aligns feature mean & std statistics</p>
+    </div>
+    """, unsafe_allow_html=True)
+with p4:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem; text-align: center;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔄</div>
+        <h5 style="color: #f1f5f9; font-size: 1rem; margin-bottom: 0.2rem;">4. Decoder</h5>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin: 0;">Inverts stylized features back into pixels</p>
+    </div>
+    """, unsafe_allow_html=True)
+with p5:
+    st.markdown("""
+    <div style="background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 1rem; text-align: center;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🎨</div>
+        <h5 style="color: #f1f5f9; font-size: 1rem; margin-bottom: 0.2rem;">5. Artwork</h5>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin: 0;">Instant high-resolution stylized output</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # Footer
 st.markdown("""
 <div class="footer">
