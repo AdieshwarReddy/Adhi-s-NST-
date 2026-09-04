@@ -2,7 +2,7 @@ streamlit>=1.30.0
 torch
 torchvision
 Pillow
-numpy>=1.24.0,<2.0.0
+numpy
 Flask>=3.0.0
 flask_wtf>=1.2.0
 WTForms>=3.0.0
