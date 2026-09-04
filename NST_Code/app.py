@@ -4,7 +4,10 @@ import uuid
 from pathlib import Path
 import torch
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, abort, flash
-from flask_bootstrap import Bootstrap
+try:
+    from flask_bootstrap import Bootstrap
+except ImportError:
+    Bootstrap = None
 from flask_wtf import FlaskForm
 from werkzeug.utils import secure_filename
 from wtforms import FileField, SubmitField, FloatField, HiddenField
@@ -28,7 +31,8 @@ max_upload_mb = int(os.environ.get('MAX_UPLOAD_MB', 10))
 app.config['MAX_CONTENT_LENGTH'] = max_upload_mb * 1024 * 1024
 image_size = int(os.environ.get('NST_IMAGE_SIZE', 512))
 
-Bootstrap(app)
+if Bootstrap:
+    Bootstrap(app)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 
